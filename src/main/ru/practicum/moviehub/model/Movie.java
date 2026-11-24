@@ -1,21 +1,24 @@
 package ru.practicum.moviehub.model;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static ru.practicum.moviehub.Constants.*;
 
 public class Movie {
+    private static final AtomicInteger nextId = new AtomicInteger(0);
+
 
     private final Integer id;
     private final String title;
     private final Integer year;
 
-    public Movie(Integer id, String title, Integer year) {
+    public Movie(String title, Integer year) {
 
         validateTitle(title);
         validateYear(year);
 
-        this.id = id;
+        this.id = nextId.getAndIncrement();
         this.title = title;
         this.year = year;
 
@@ -31,6 +34,10 @@ public class Movie {
 
     public Integer getYear() {
         return year;
+    }
+
+    public static void resetNextId() {
+        nextId.set(0);
     }
 
 

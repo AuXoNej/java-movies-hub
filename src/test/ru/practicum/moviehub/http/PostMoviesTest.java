@@ -43,6 +43,7 @@ public class PostMoviesTest {
 
     @BeforeEach
     void beforeEach() {
+        Movie.resetNextId();
         store.clear();
     }
 

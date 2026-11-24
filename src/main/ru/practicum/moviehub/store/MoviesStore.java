@@ -6,38 +6,37 @@ import java.util.*;
 
 public class MoviesStore {
 
-    private final List<Movie> movies;
+    private final Map<Integer, Movie> movies;
 
     public MoviesStore() {
-        this.movies = new ArrayList<>();
+        this.movies = new HashMap<>();
     }
 
     public Movie addMovie(String title, Integer year) {
-        var id = !movies.isEmpty() ? movies.getLast().getId() + 1 : 0;
-        var movie = new Movie(id, title, year);
-        movies.add(movie);
+        var movie = new Movie(title, year);
+        movies.put(movie.getId(), movie);
         return movie;
     }
 
     public List<Movie> getMovies() {
-        return movies;
+        return movies.values().stream().toList();
     }
 
     public Optional<Movie> getMovieById(Integer id) {
-        return movies.stream()
-            .filter(m -> m.getId().equals(id))
-            .findFirst();
+        return Optional.ofNullable(movies.get(id));
     }
 
     public List<Movie> getMoviesByYear(Integer year) {
-        return movies.stream()
+        return movies.values().stream()
             .filter(m -> m.getYear().equals(year))
             .toList();
     }
 
     public void removeMovieById(Integer id) {
-        boolean removed = movies.removeIf(m -> m.getId().equals(id));
-        if (!removed) throw new NoSuchElementException();
+        if (!movies.containsKey(id)) {
+            throw new NoSuchElementException();
+        }
+        movies.remove(id);
     }
 
     public void clear() {

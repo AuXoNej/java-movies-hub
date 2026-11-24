@@ -44,6 +44,7 @@ public class GetMoviesTest {
 
     @BeforeEach
     void beforeEach() {
+        Movie.resetNextId();
         store.clear();
     }
 

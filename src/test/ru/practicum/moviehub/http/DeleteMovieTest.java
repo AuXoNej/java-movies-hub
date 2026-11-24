@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.practicum.moviehub.Constants;
 import ru.practicum.moviehub.api.ErrorResponse;
+import ru.practicum.moviehub.model.Movie;
 import ru.practicum.moviehub.store.MoviesStore;
 
 import java.net.http.HttpClient;
@@ -42,6 +43,7 @@ public class DeleteMovieTest {
 
     @BeforeEach
     void beforeEach() {
+        Movie.resetNextId();
         store.clear();
     }
 
