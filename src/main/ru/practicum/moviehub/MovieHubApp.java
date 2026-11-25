@@ -4,9 +4,13 @@ import ru.practicum.moviehub.http.MoviesServer;
 import ru.practicum.moviehub.store.MoviesStore;
 
 public class MovieHubApp {
+
     public static void main(String[] args) {
-        final MoviesServer server = new MoviesServer(new MoviesStore(), 8080);
+
+        final MoviesServer server = new MoviesServer(new MoviesStore(), Constants.PORT);
+
         Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
+
         server.start();
     }
 }
